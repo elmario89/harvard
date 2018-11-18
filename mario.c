@@ -1,3 +1,5 @@
+// check50 cs50/2018/spring/mario/less => test it
+// style50 mario.c => check the styles
 #include <cs50.h>
 #include <stdio.h>
 
@@ -12,26 +14,19 @@ int main()
         a = get_int();
     }
 
-    int b = 0;
-    while (b < a)
+    int b, c, d;
+    for (b = 0; b < a; b = b + 1)
     {
-        int c = 0;
-        int d = a - (b + 1);
-
-        while (d != 0)
+        for (d = a - 1; d > b; d = d - 1)
         {
             printf(" ");
-            d--;
         }
 
         printf("#");
-
-        while (b >= c)
+        for (c = -1; c < b; c = c + 1)
         {
             printf("#");
-            c++;
         }
         printf("\n");
-        b++;
     }
 }

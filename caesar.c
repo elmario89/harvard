@@ -4,10 +4,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-void accumulate_ascii_array(int, int array[26]);
 void print_ciphered_letter(int offset, int key, int letter_in_bytes);
-int ascii_upper_array[26];
-int ascii_lower_array[26];
 
 int main(int argc, string argv[])
 {
@@ -19,9 +16,6 @@ int main(int argc, string argv[])
 
     char *p;
     int key = strtol(argv[1], &p, 10);
-
-    accumulate_ascii_array(65, ascii_upper_array);
-    accumulate_ascii_array(97, ascii_lower_array);
 
     printf("Print your message please: \n");
     string s = get_string();
@@ -40,14 +34,6 @@ int main(int argc, string argv[])
         }
     }
     printf("\n");
-}
-
-void accumulate_ascii_array(int offset, int array[26])
-{
-    for (int i = 0; i < 26; i++)
-    {
-        array[i] = i + offset;
-    }
 }
 
 void print_ciphered_letter(int offset, int key, int letter_in_bytes)

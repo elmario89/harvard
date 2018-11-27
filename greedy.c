@@ -3,14 +3,12 @@
 #include <stdio.h>
 #include <math.h>
 
-void get_cents(float n);
-int change_in_cents;
+int change;
 void print_amount_of_coins(int counter[4]);
 void calc_coins(int coin, int counter[4], int index);
 
 int main()
 {
-    float change;
     int coins[4] = {25, 10, 5, 1};
     int coins_counter[4] = {0, 0, 0, 0};
 
@@ -18,11 +16,9 @@ int main()
 
     do
     {
-        change = get_float();
+        change = roundf(get_float() * 100.0);
     }
     while (change < 0);
-
-    get_cents(change);
 
     for (int i = 0; i < 4; i++)
     {
@@ -30,11 +26,6 @@ int main()
     }
 
     print_amount_of_coins(coins_counter);
-}
-
-void get_cents(float n)
-{
-    change_in_cents = roundf(n * 100.0);
 }
 
 void print_amount_of_coins(int counter[4])
@@ -49,6 +40,6 @@ void print_amount_of_coins(int counter[4])
 
 void calc_coins(int coin, int counter[4], int index)
 {
-    counter[index] = (change_in_cents - (change_in_cents % coin)) / coin;
-    change_in_cents = change_in_cents - (counter[index] * coin);
+    counter[index] = (change - (change % coin)) / coin;
+    change = change - (counter[index] * coin);
 }

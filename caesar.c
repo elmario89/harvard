@@ -52,12 +52,12 @@ void accumulate_ascii_array(int offset, int array[26])
 
 void print_ciphered_letter(int offset, int key, int letter_in_bytes)
 {
-    if (letter_in_bytes != 32)
+    if (letter_in_bytes < 65)
     {
-        printf("%c", (char) (letter_in_bytes + key - offset) % 26 + offset);
+        printf("%c", (char) letter_in_bytes);
     }
     else
     {
-        printf(" ");
+        printf("%c", (char) (letter_in_bytes + key - offset) % 26 + offset);
     }
 }

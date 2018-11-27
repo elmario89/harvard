@@ -4,8 +4,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-void print_ciphered_letter(int offset, int key, int letter_in_bytes);
-
 int main(int argc, string argv[])
 {
     if (argc != 2)
@@ -26,24 +24,12 @@ int main(int argc, string argv[])
     {
         if (s[i] < 97)
         {
-            print_ciphered_letter(64, key, s[i]);
+            printf("%c", (char) (s[i] + key - 64) % 26 + 64);
         }
         else
         {
-            print_ciphered_letter(96, key, s[i]);
+            printf("%c", (char) (s[i] + key - 96) % 26 + 96);
         }
     }
     printf("\n");
-}
-
-void print_ciphered_letter(int offset, int key, int letter_in_bytes)
-{
-    if (letter_in_bytes < 65)
-    {
-        printf("%c", (char) letter_in_bytes);
-    }
-    else
-    {
-        printf("%c", (char) (letter_in_bytes + key - offset) % 26 + offset);
-    }
 }

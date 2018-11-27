@@ -3,15 +3,16 @@
 #include <stdio.h>
 #include <math.h>
 
-float get_cents(float n);
-void print_amount_of_coins(float dimes, float quarters, float pennies, float nickels);
+void get_cents(float n);
+int change_in_cents;
+void print_amount_of_coins(int counter[4]);
+void calc_coins(int coin, int counter[4], int index);
 
 int main()
 {
     float change;
-    int change_in_cents;
-    int dime = 25, quarter = 10, penny = 5, nickel = 1;
-    float dime_counter = 0, quarter_counter = 0, penny_counter = 0, nickel_counter = 0;
+    int coins[4] = {25, 10, 5, 1};
+    int coins_counter[4] = {0, 0, 0, 0};
 
     printf("Enter change to give back:\n");
 
@@ -21,77 +22,33 @@ int main()
     }
     while (change < 0);
 
-    change_in_cents = get_cents(change);
+    get_cents(change);
 
-    if (change_in_cents >= dime)
+    for (int i = 0; i < 4; i++)
     {
-        if (change_in_cents == dime)
-        {
-            dime_counter = 1;
-            print_amount_of_coins(dime_counter, quarter_counter, penny_counter, nickel_counter);
-            return 0;
-        }
-        else
-        {
-            dime_counter = (change_in_cents - (change_in_cents % dime)) / dime;
-            change_in_cents = change_in_cents - (dime_counter * dime);
-        }
+        calc_coins(coins[i], coins_counter, i);
     }
 
-    if (change_in_cents >= quarter)
-    {
-        if (change_in_cents == quarter)
-        {
-            quarter_counter = 1;
-            print_amount_of_coins(dime_counter, quarter_counter, penny_counter, nickel_counter);
-            return 0;
-        }
-        else
-        {
-            quarter_counter = (change_in_cents - (change_in_cents % quarter)) / quarter;
-            change_in_cents = change_in_cents - (quarter_counter * quarter);
-        }
-    }
-
-    if (change_in_cents >= penny)
-    {
-        if (change_in_cents == penny)
-        {
-            penny_counter = 1;
-            print_amount_of_coins(dime_counter, quarter_counter, penny_counter, nickel_counter);
-            return 0;
-        }
-        else
-        {
-            penny_counter = (change_in_cents - (change_in_cents % penny)) / penny;
-            change_in_cents = change_in_cents - (quarter_counter * penny);
-        }
-    }
-
-    if (change_in_cents >= nickel)
-    {
-        if (change_in_cents == nickel)
-        {
-            nickel_counter = 1;
-            print_amount_of_coins(dime_counter, quarter_counter, penny_counter, nickel_counter);
-            return 0;
-        }
-        else
-        {
-            nickel_counter = (change_in_cents - (change_in_cents % nickel)) / nickel;
-            change_in_cents = change_in_cents - (nickel_counter * nickel);
-        }
-    }
-
-    print_amount_of_coins(dime_counter, quarter_counter, penny_counter, nickel_counter);
+    print_amount_of_coins(coins_counter);
 }
 
-float get_cents(float n)
+void get_cents(float n)
 {
-    return roundf(n * 100.0);
+    change_in_cents = roundf(n * 100.0);
 }
 
-void print_amount_of_coins(float dimes, float quarters, float pennies, float nickels)
+void print_amount_of_coins(int counter[4])
 {
-    printf("%.0f\n", dimes + quarters + pennies + nickels);
+    int result = 0;
+
+    for (int i = 0; i < 4; i++)
+        result = result + counter[i];
+
+    printf("%d\n", result);
+}
+
+void calc_coins(int coin, int counter[4], int index)
+{
+    counter[index] = (change_in_cents - (change_in_cents % coin)) / coin;
+    change_in_cents = change_in_cents - (counter[index] * coin);
 }
